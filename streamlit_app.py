@@ -14,16 +14,16 @@ import matplotlib.pyplot as plt
 # 1. Drink image URLs & folder
 # -------------------------------
 image_urls = {
-    "Coca-Cola": "https://i5.walmartimages.com/asr/e3e510eb-3379-4ce5-a8e2-31f45ed5a47e.c99ca9cb61a8a839c23892605149d63b.jpeg",
-    "Pepsi": "https://upload.wikimedia.org/wikipedia/commons/0/09/Pepsi_logo_2014.png",
-    "Red Bull": "https://tse2.mm.bing.net/th/id/OIP.Kjony-rkRzNezIKBM3MSVwHaHa?rs=1&pid=ImgDetMain&o=7&rm=3",
-    "Sprite": "https://www.coca-cola.com/content/dam/onexp/mv/en/brands/sprite/images/Sprite-desktop.png",
-    "Fanta": "https://www.coca-cola.com/content/dam/onexp/mv/home-images/fanta/Fanta-desktop.png",
-    "Monster": "https://www.instacart.com/image-server/1398x1398/www.instacart.com/assets/domains/product-image/file/large_fe53f5ed-45d0-4c95-80a3-c08387ef11c3.png",
-    "Minute Maid": "https://th.bing.com/th/id/OIP.dYD6ZHQDJtZBAnNhX_GXVwHaHa?w=215&h=215&c=7&r=0&o=7&pid=1.7&rm=3",
-    "Dasani": "https://th.bing.com/th/id/OIP.kY0UCtFI8O96ZgOd7YVZEwHaHa?w=202&h=202&c=7&r=0&o=7&pid=1.7&rm=3",
-    "Lipton": "https://th.bing.com/th/id/OIP.llaNAJhqtzl76J0-WCKzWQHaHa?w=207&h=207&c=7&r=0&o=7&pid=1.7&rm=3",
-    "Milo": "https://th.bing.com/th/id/OIP.u7w2lXk5w_rdWlul0Po1vAHaHa?w=215&h=215&c=7&r=0&o=7&pid=1.7&rm=3"
+    "Coca-Cola": "https://upload.wikimedia.org/wikipedia/commons/4/4e/Coca-Cola_logo.png",
+    "Pepsi": "https://th.bing.com/th/id/OIP.73fMAA7nhyd4hHPo3eizYwHaJQ?w=149&h=187&c=7&r=0&o=7&pid=1.7&rm=3",
+    "Red Bull": "https://upload.wikimedia.org/wikipedia/commons/4/4e/Red_Bull.svg.png",
+    "Sprite": "https://upload.wikimedia.org/wikipedia/commons/1/19/Sprite_logo_2019.svg.png",
+    "Fanta": "https://upload.wikimedia.org/wikipedia/commons/1/11/Fanta_logo.svg.png",
+    "Monster": "https://upload.wikimedia.org/wikipedia/commons/3/3f/Monster_Energy_logo.svg.png",
+    "Minute Maid": "https://upload.wikimedia.org/wikipedia/commons/0/05/Minute_Maid_logo.svg.png",
+    "Dasani": "https://upload.wikimedia.org/wikipedia/commons/f/fb/Dasani_logo.svg.png",
+    "Lipton": "https://upload.wikimedia.org/wikipedia/commons/0/02/Lipton_Logo_2018.png",
+    "Milo": "https://upload.wikimedia.org/wikipedia/commons/7/77/Nestle_Milo_logo.png"
 }
 
 image_folder = "./images"
@@ -39,7 +39,6 @@ for drink, url in image_urls.items():
         try:
             r = requests.get(url, timeout=5)
             img = Image.open(BytesIO(r.content))
-            # Convert to RGB to avoid RGBA/P issues
             if img.mode != "RGB":
                 img = img.convert("RGB")
             img.save(img_path, format="JPEG")
@@ -128,7 +127,7 @@ if st.button("Train Model"):
         ax[1].legend()
         st.pyplot(fig)
 
-        # Confusion matrix (only if classes exist)
+        # Confusion matrix
         if val_generator.samples > 0 and len(train_generator.class_indices) > 0:
             val_generator.reset()
             y_pred = model.predict(val_generator)
