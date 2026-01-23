@@ -158,15 +158,4 @@ if drink_name:
         img = Image.open(img_path)
         st.image(img, caption=drink_name, use_column_width=True)
 
-        # CNN prediction
-        img_resized = img.resize((128,128))
-        x = np.expand_dims(np.array(img_resized)/255.0, axis=0)
-        if train_generator.samples > 0:
-            pred_probs = model.predict(x)
-            class_idx = np.argmax(pred_probs)
-            class_label = list(train_generator.class_indices.keys())[class_idx]
-            st.write(f"**CNN Prediction:** {class_label} ({pred_probs[0][class_idx]*100:.2f}%)")
-        else:
-            st.write("⚠️ Model not trained yet.")
-    else:
-        st.error(f"No image found for '{drink_name}'")
+       
